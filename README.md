@@ -1,3 +1,4 @@
+
 # oneplace-theme-vuze
 
 This is a onePlace Theme for the popular Boostrap 4 Admin Theme "Vuze" by
@@ -11,11 +12,31 @@ for your onePlace based Application.
 
 ## Installation
 
-Get the theme on Themeforest
+* Buy and download the template on themeforest
+> [https://themeforest.net/item/vuze-bootstrap-4-admin-dashboard-template/23215259](https://themeforest.net/item/vuze-bootstrap-4-admin-dashboard-template/23215259)
 
-[https://themeforest.net/item/vuze-bootstrap-4-admin-dashboard-template/23215259](https://themeforest.net/item/vuze-bootstrap-4-admin-dashboard-template/23215259)
+* Copy the app.js and app.css files to /assets/ css/ and js/ dir of this theme.
 
-Copy the app.js and app.css files to /assets/ dir of this theme.
+Create a folder "vuze" where you place all theme files inside. So you end up with a final 
+structure like:
+```
+.
++-- vuze
+|   +-- assets
+|   |   +-- css
+|   |   |   + app.css
+|   |   +-- js
+|   |   |   + app.js
+|   +-- view
+|   |   +-- layout
+|   |   |   + layout-vuze.phtml
+|   |   +-- partial
+|   |   |   + [partials]-vuze.phtml
 
-Create a folder "vuze" where you place all theme files inside. Zip it, so you can upload it
-through onePlace Admin.
+```
+Now you can zip the vuze folder, so you can upload it to oneplace in theme manager.
+
+![zipvuzetheme](https://docs.1plc.ch/img/zipvuzetheme.jpg)
+
+Finally, login to your oneplace, and go to "manage themes" ( /application/themes ) 
+where you can upload Vuze theme now! Enjoy your oneplace with Vuze.
