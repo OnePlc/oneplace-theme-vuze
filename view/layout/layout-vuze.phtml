@@ -15,6 +15,7 @@ use Application\Controller\CoreController;
 
     <!-- Le styles -->
     <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+        ->prependStylesheet($this->basePath('themes/vuze/assets/css/style.css'))
         ->prependStylesheet($this->basePath('themes/vuze/assets/css/app.css'))
         ->prependStylesheet($this->basePath('vendor/select2/css/select2.min.css'))
         ->prependStylesheet($this->basePath('vendor/fontawesome/css/all.min.css'))
@@ -23,13 +24,13 @@ use Application\Controller\CoreController;
     <!-- Filepond stylesheet -->
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+
     <!-- Scripts -->
     <?= $this->inlineScript()
         ->prependFile($this->basePath('vendor/select2/js/select2.full.min.js'))
         ->prependFile($this->basePath('themes/vuze/assets/js/app.js'))
     ?>
     <link href="https://transloadit.edgly.net/releases/uppy/v1.8.0/uppy.min.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -43,6 +44,9 @@ use Application\Controller\CoreController;
 
             <ul class="sidebar-nav">
                 <?php
+                /**
+                 * Try to load theme based navigation - or get default navigation instead
+                 */
                 try {
                     echo $this->partial('partial/nav-'.CoreController::$oSession->oUser->getTheme());
                 } catch(\RuntimeException $e) {
@@ -57,15 +61,17 @@ use Application\Controller\CoreController;
             </ul>
 
             <div class="sidebar-cta">
+                <!--
                 <button type="button" class="close sidebar-cta-close" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
+                </button> -->
                 <div class="sidebar-cta-content">
-                    <strong class="d-inline-block mb-1">Upgrade to pro</strong>
+                    <strong class="d-inline-block mb-1">Get Premium Support</strong>
                     <div class="mb-2">
-                        Showcase your work with our interactive portfolio on your custom domain
+                        If you like onePlace, consider a subscription based model
+                        for premium support and extended features
                     </div>
-                    <a href="#" class="btn btn-outline-primary">Upgrade</a>
+                    <a href="https://1plc.ch" class="btn btn-outline-primary" target="_blank">Upgrade</a>
                 </div>
             </div>
         </div>
@@ -93,20 +99,20 @@ use Application\Controller\CoreController;
                             <img src="https://via.placeholder.com/156x156" class="avatar img-fluid rounded mr-1" alt="<?=CoreController::$oSession->oUser->getLabel()?>" /> <span class="text-dark"><?=CoreController::$oSession->oUser->getLabel()?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="pages-profile.html">Profile</a>
-                            <a class="dropdown-item" href="pages-settings.html">Settings</a>
-                            <a class="dropdown-item" href="#">Help</a>
-                            <a class="dropdown-item" href="/logout">Sign out</a>
+                            <a class="dropdown-item" href="<?=$this->url('logout')?>">
+                                <?=$this->translate('Sign out')?>
+                            </a>
                         </div>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-icon dropdown-toggle ml-2" href="#" data-toggle="dropdown">
                             <div class="position-relative">
-                                <i class="align-middle" data-feather="message-square"></i>
-                                <span class="indicator">4</span>
+                                <i class="align-middle fas fa-envelope"></i>
+                                <span class="indicator">0</span>
                             </div>
                         </a>
+                        <!--
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0">
                             <div class="dropdown-menu-header">
                                 <div class="position-relative">
@@ -166,14 +172,15 @@ use Application\Controller\CoreController;
                             <div class="dropdown-menu-footer">
                                 <a href="#" class="text-muted">Show all messages</a>
                             </div>
-                        </div>
+                        </div> -->
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-icon dropdown-toggle ml-2" href="#" id="alertsDropdown" data-toggle="dropdown">
                             <div class="position-relative">
-                                <i class="align-middle" data-feather="bell"></i>
+                                <i class="align-middle fas fa-bell"></i>
                             </div>
                         </a>
+                        <!--
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="alertsDropdown">
                             <div class="dropdown-menu-header">
                                 4 New Notifications
@@ -231,6 +238,7 @@ use Application\Controller\CoreController;
                                 <a href="#" class="text-muted">Show all notifications</a>
                             </div>
                         </div>
+                        --->
                     </li>
 
                 </ul>
@@ -239,7 +247,23 @@ use Application\Controller\CoreController;
 
         <main class="content">
             <div class="container-fluid p-0">
+                <?php
+                /**
+                 * Print Flashmessenger messages (alerts)
+                 */
+                $flash = $this->flashMessenger();
+                $flash->setMessageOpenFormat('<div%s style="">
+                                 <ul><li>')
+                    ->setMessageSeparatorString('</li><li>')
+                    ->setMessageCloseString('</li></ul></div>');
+                echo $flash->render('error',   ['alert', 'alert-dismissible', 'alert-danger', 'alert-plc']);
+                echo $flash->render('info',    ['alert', 'alert-dismissible', 'alert-info', 'alert-plc']);
+                echo $flash->render('default', ['alert', 'alert-dismissible', 'alert-info', 'alert-plc']);
+                echo $flash->render('warning', ['alert', 'alert-dismissible', 'alert-warning', 'alert-plc']);
+                echo $flash->render('success', ['alert', 'alert-dismissible', 'alert-success', 'alert-plc']);?>
+
                 <?= $this->partial('partial/breadcrumb', ['aButtons'=>isset($this->aButtons) ? $this->aButtons : [], 'pages'=>[]]); ?>
+
                 <?= $this->content ?>
             </div>
         </main>
@@ -275,8 +299,10 @@ use Application\Controller\CoreController;
     </div>
 </div>
 
+<!-- VUZE Theme js -->
 <script src="js/app.js"></script>
 
+<!-- jquery ui -->
 <script src="vendor/jquery-ui/jquery-ui.min.js" />
 
 <!-- sweet alert for all alerts -->
@@ -285,58 +311,6 @@ use Application\Controller\CoreController;
 <!-- oneplace core scripts -->
 <script src="/js/listener.js"></script>
 <script src="/js/plc-message.js"></script>
-
-<script src="https://transloadit.edgly.net/releases/uppy/v1.8.0/uppy.min.js"></script>
-<script>
-    $(function() {
-        const GoogleDrive = Uppy.GoogleDrive;
-        const Dashboard = Uppy.Dashboard;
-        const Dropbox = Uppy.Dropbox;
-        const Instagram = Uppy.Instagram;
-        const Facebook = Uppy.Facebook;
-        const OneDrive = Uppy.OneDrive;
-        const Webcam = Uppy.Webcam;
-        const Tus = Uppy.Tus;
-
-        const uppy = Uppy.Core({
-            debug: true,
-            autoProceed: false,
-            restrictions: {
-                maxFileSize: 1000000,
-                maxNumberOfFiles: 3,
-                minNumberOfFiles: 2,
-                allowedFileTypes: ['image/*', 'video/*']
-            }
-        })
-        .use(Dashboard, {
-            trigger: '.UppyModalOpenerBtn',
-            inline: true,
-            target: '#drag-drop-area',
-            replaceTargetContent: true,
-            showProgressDetails: true,
-            note: 'Images and video only, 2–3 files, up to 1 MB',
-            height: 470,
-            metaFields: [
-                { id: 'name', name: 'Name', placeholder: 'file name' },
-                { id: 'caption', name: 'Caption', placeholder: 'describe what the image is about' }
-            ],
-            browserBackButtonClose: true
-        })
-        //.use(GoogleDrive, { target: '#drag-drop-area', companionUrl: 'https://companion.uppy.io' })
-        //.use(Dropbox, { target: '#drag-drop-area', companionUrl: 'https://companion.uppy.io' })
-        //.use(Instagram, { target: '#drag-drop-area', companionUrl: 'https://companion.uppy.io' })
-        //.use(Facebook, { target: '#drag-drop-area', companionUrl: 'https://companion.uppy.io' })
-        //.use(OneDrive, { target: '#drag-drop-area', companionUrl: 'https://companion.uppy.io' })
-        //.use(Webcam, { target: '#drag-drop-area' })
-        //.use(Tus, { endpoint: 'https://master.tus.io/files/' })
-
-        uppy.on('complete', result => {
-            console.log('successful files:', result.successful)
-            console.log('failed files:', result.failed)
-        })
-    });
-
-</script>
 </body>
 
 </html>

@@ -11,7 +11,6 @@ $aIndexPermissions = CoreController::$oSession->oUser->getMyPermissions('index',
 <li class="sidebar-item active">
     <a href="#dashboards" data-toggle="collapse" class="font-weight-bold sidebar-link">
         <i class="align-middle" data-feather="home"></i> <span class="align-middle">Dashboard</span>
-        <span class="sidebar-badge badge badge-primary">14</span>
     </a>
     <ul id="dashboards" class="sidebar-dropdown list-unstyled collapse show">
         <?php foreach(array_keys($aIndexPermissions) as $sModule) {
