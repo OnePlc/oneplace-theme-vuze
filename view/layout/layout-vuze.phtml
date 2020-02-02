@@ -6,7 +6,7 @@ use Application\Controller\CoreController;
 
 <head>
     <meta charset="utf-8">
-    <?= $this->headTitle('onePlace X - RC 1')->setSeparator(' - ')->setAutoEscape(false) ?>
+    <?= $this->headTitle(CoreController::$aGlobalSettings['app-title'])->setSeparator(' - ')->setAutoEscape(false) ?>
 
     <?= $this->headMeta()
         ->appendName('viewport', 'width=device-width, initial-scale=1.0')
@@ -32,7 +32,16 @@ use Application\Controller\CoreController;
         ->prependFile($this->basePath('/vendor/jquery-ui-sortable/jquery-ui.min.js'))
         ->prependFile($this->basePath('/themes/vuze/assets/js/app.js'))
     ?>
-
+    <!-- Load FilePond library -->
+    <script src="/vendor/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.min.js"></script>
+    <script src="/vendor/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="/vendor/filepond-plugin-image-validate-size/dist/filepond-plugin-image-validate-size.min.js"></script>
+    <script src="/vendor/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.min.js"></script>
+    <script src="/vendor/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.min.js"></script>
+    <script src="/vendor/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
+    <script src="/vendor/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.min.js"></script>
+    <script src="/vendor/filepond/dist/filepond.min.js"></script>
+    <!-- Turn all file input elements into ponds -->
 </head>
 
 <body>
@@ -40,8 +49,7 @@ use Application\Controller\CoreController;
     <nav class="sidebar sidebar-sticky">
         <div class="sidebar-content  js-simplebar">
             <a class="sidebar-brand" href="/">
-                <i class="align-middle" data-feather="layers"></i>
-                <span class="align-middle">onePlace X</span>
+                <img src="/img/logo.png" style="max-height:60px; max-width:120px;" />
             </a>
 
             <ul class="sidebar-nav">
@@ -62,6 +70,9 @@ use Application\Controller\CoreController;
                 ?>
             </ul>
 
+            <?php
+            if(!isset(CoreController::$oSession->aLicences['info-instance-id'])) {
+            ?>
             <div class="sidebar-cta">
                 <!--
                 <button type="button" class="close sidebar-cta-close" aria-label="Close">
@@ -76,6 +87,7 @@ use Application\Controller\CoreController;
                     <a href="https://1plc.ch" class="btn btn-outline-primary" target="_blank">Upgrade</a>
                 </div>
             </div>
+            <?php } ?>
         </div>
     </nav>
 
@@ -112,6 +124,12 @@ use Application\Controller\CoreController;
                             </div>
                         </div>
                         <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="<?=$this->url('user',['action'=>'profile'])?>">
+                                <?=$this->translate('Profile')?>
+                            </a>
+                            <a class="dropdown-item" href="<?=$this->url('user',['action'=>'settings'])?>">
+                                <?=$this->translate('Settings')?>
+                            </a>
                             <a class="dropdown-item" href="<?=$this->url('logout')?>">
                                 <?=$this->translate('Sign out')?>
                             </a>
@@ -286,23 +304,31 @@ use Application\Controller\CoreController;
                 <div class="row text-muted">
                     <div class="col-6 text-left">
                         <p class="mb-0">
-                            &copy; <a href="index.html" class="text-muted">Vuze</a>
+                            &copy; 2020 onePlace - Theme Vuze by <a href="https://bootlab.io" class="text-muted" target="_blank">bootlab.io</a>
                             - <?=(isset($this->recentPerfU)) ? 'Seite generiert in '.$this->recentPerfU.' ms' : ''?>
                         </p>
                     </div>
                     <div class="col-6 text-right">
                         <ul class="list-inline">
                             <li class="list-inline-item">
-                                <a class="text-muted" href="#">About us</a>
+                                <a class="text-muted" href="#">
+                                    <?=$this->translate('About us')?>
+                                </a>
                             </li>
                             <li class="list-inline-item">
-                                <a class="text-muted" href="#">Help</a>
+                                <a class="text-muted" href="#">
+                                    <?=$this->translate('Help')?>
+                                </a>
                             </li>
                             <li class="list-inline-item">
-                                <a class="text-muted" href="#">Contact</a>
+                                <a class="text-muted" href="#">
+                                    <?=$this->translate('Contact')?>
+                                </a>
                             </li>
                             <li class="list-inline-item">
-                                <a class="text-muted" href="#">Terms & Conditions</a>
+                                <a class="text-muted" href="#">
+                                    <?=$this->translate('Terms & Conditions')?>
+                                </a>
                             </li>
                         </ul>
                     </div>

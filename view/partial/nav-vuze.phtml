@@ -5,9 +5,6 @@ use Application\Controller\CoreController;
 # Load User Index Permissions as base for navigation
 $aIndexPermissions = CoreController::$oSession->oUser->getMyPermissions('index',true);
 ?>
-<li class="sidebar-header">
-    Main
-</li>
 <li class="sidebar-item active">
     <a href="#dashboards" data-toggle="collapse" class="font-weight-bold sidebar-link">
         <i class="align-middle" data-feather="home"></i> <span class="align-middle">Dashboard</span>
@@ -27,7 +24,11 @@ $aIndexPermissions = CoreController::$oSession->oUser->getMyPermissions('index',
             # home is special case ..
             $sActive = ($this->sRouteName == 'home' && $aInfo['index']->nav_href == '/') ? ' active' : $sActive;
             ?>
-            <li class="sidebar-item"><a class="sidebar-link" href="<?=$aInfo['index']->nav_href?>"><?=$aInfo['index']->nav_label?></a></li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?=$aInfo['index']->nav_href?>">
+                    <?=$this->translate($aInfo['index']->nav_label)?>
+                </a>
+            </li>
         <?php } ?>
     </ul>
 </li>
