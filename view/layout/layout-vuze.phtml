@@ -17,21 +17,21 @@ use Application\Controller\CoreController;
     <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
         ->prependStylesheet($this->basePath('/themes/vuze/assets/css/style.css'))
         ->prependStylesheet($this->basePath('/themes/vuze/assets/css/app.css'))
+        ->prependStylesheet($this->basePath('/vendor/uppy/dist/uppy.min.css'))
         ->prependStylesheet($this->basePath('/vendor/summernote/dist/summernote-bs4.min.css'))
         ->prependStylesheet($this->basePath('/vendor/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'))
         ->prependStylesheet($this->basePath('/vendor/filepond/dist/filepond.min.css'))
     ?>
-    <link href="https://transloadit.edgly.net/releases/uppy/v1.8.0/uppy.min.css" rel="stylesheet">
 
     <!-- Scripts -->
     <?= $this->inlineScript()
         ->prependFile($this->basePath('/js/plc-message.js'))
         ->prependFile($this->basePath('/js/listener.js'))
+        ->prependFile($this->basePath('/vendor/sweetalert/dist/sweetalert.min.js'))
         ->prependFile($this->basePath('/vendor/summernote/dist/summernote-bs4.min.js'))
         ->prependFile($this->basePath('/vendor/jquery-ui-sortable/jquery-ui.min.js'))
         ->prependFile($this->basePath('/themes/vuze/assets/js/app.js'))
     ?>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 </head>
 
