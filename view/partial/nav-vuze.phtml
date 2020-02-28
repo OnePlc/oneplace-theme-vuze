@@ -23,9 +23,14 @@ $aIndexPermissions = CoreController::$oSession->oUser->getMyPermissions('index',
             $sActive = ('/'.strtolower($this->sRouteName) == strtolower($aInfo['index']->nav_href)) ? ' active' : '';
             # home is special case ..
             $sActive = ($this->sRouteName == 'home' && $aInfo['index']->nav_href == '/') ? ' active' : $sActive;
+
+            $sIconName = substr($aInfo['index']->nav_href,1);
+            $sIcon = (array_key_exists($sIconName.'-icon',CoreController::$aGlobalSettings))
+                ?  CoreController::$aGlobalSettings[$sIconName.'-icon'] : '';
             ?>
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?=$aInfo['index']->nav_href?>">
+                    <?=($sIcon != '') ? '<i class="'.$sIcon.'"></i> ' : ''?>
                     <?=$this->translate($aInfo['index']->nav_label)?>
                 </a>
             </li>

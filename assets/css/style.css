@@ -2,3 +2,18 @@
 .alert-plc {
     width:400px; float:none; position:fixed; top:68px; right:0; z-index:9999; margin:auto;
 }
+
+.plcViewFormLabel {
+    display: block;
+    font-size: 14px;
+    color: #999 !important;
+    position: absolute;
+    top: 8px;
+    z-index: 2;
+    left: 16px;
+    font-weight: 500;
+}
+
+.sidebar-dropdown .sidebar-link {
+    padding-left: 20px;
+}

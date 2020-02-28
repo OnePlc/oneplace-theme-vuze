@@ -15,20 +15,21 @@ use Application\Controller\CoreController;
 
     <!-- Le styles -->
     <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+        ->prependStylesheet($this->basePath('/css/custom.css'))
         ->prependStylesheet($this->basePath('/themes/vuze/assets/css/style.css'))
         ->prependStylesheet($this->basePath('/themes/vuze/assets/css/app.css'))
+        ->prependStylesheet($this->basePath('/vendor/shepherd.js/dist/css/shepherd.css'))
         ->prependStylesheet($this->basePath('/vendor/uppy/dist/uppy.min.css'))
-        ->prependStylesheet($this->basePath('/vendor/sweetalert2/dist/sweetalert2.min.css'))
         ->prependStylesheet($this->basePath('/vendor/summernote/dist/summernote-bs4.min.css'))
         ->prependStylesheet($this->basePath('/vendor/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'))
         ->prependStylesheet($this->basePath('/vendor/filepond/dist/filepond.min.css'))
     ?>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <!-- Scripts -->
     <?= $this->inlineScript()
         ->prependFile($this->basePath('/js/plc-message.js'))
         ->prependFile($this->basePath('/js/listener.js'))
-        ->prependFile($this->basePath('/vendor/sweetalert2/dist/sweetalert2.min.js'))
+        ->prependFile($this->basePath('/vendor/shepherd.js/dist/js/shepherd.min.js'))
         ->prependFile($this->basePath('/vendor/summernote/dist/summernote-bs4.min.js'))
         ->prependFile($this->basePath('/vendor/jquery-ui-sortable/jquery-ui.min.js'))
         ->prependFile($this->basePath('/themes/vuze/assets/js/app.js'))
@@ -148,9 +149,9 @@ use Application\Controller\CoreController;
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle ml-2" href="#" id="alertsDropdown" data-toggle="dropdown">
+                        <a class="nav-icon dropdown-toggle ml-2" href="#" id="showGuideTour" data-toggle="dropdown">
                             <div class="position-relative">
-                                <i class="align-middle fas fa-bell"></i>
+                                <i class="align-middle fas fa-question-circle"></i>
                             </div>
                         </a>
                     </li>
