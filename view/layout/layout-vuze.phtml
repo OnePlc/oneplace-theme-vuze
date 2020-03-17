@@ -1,12 +1,15 @@
 <?php
 use Application\Controller\CoreController;
+
+$sAppTitle = CoreController::$aGlobalSettings['app-title'];
+$sAppTitle = str_replace(['##VERSION##'],[Application\Module::VERSION],$sAppTitle);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <?= $this->headTitle(CoreController::$aGlobalSettings['app-title'])->setSeparator(' - ')->setAutoEscape(false) ?>
+    <?= $this->headTitle($sAppTitle)->setSeparator(' - ')->setAutoEscape(false) ?>
 
     <?= $this->headMeta()
         ->appendName('viewport', 'width=device-width, initial-scale=1.0')
@@ -115,10 +118,15 @@ use Application\Controller\CoreController;
                             </div>
                         </a>
                         <a class="nav-link nav-link-user dropdown-toggle d-none d-sm-inline-block" href="#" data-toggle="dropdown">
-                            <img src="https://via.placeholder.com/156x156" class="avatar img-fluid rounded mr-1" alt="<?=CoreController::$oSession->oUser->getLabel()?>" />
-                            <span class="text-dark"><?=CoreController::$oSession->oUser->getLabel()?>
+                            <?php
+                            $oUser = CoreController::$oSession->oUser;
+                            $sProfileImg = ($oUser->featured_image != '')
+                                ? '/data/user/'.$oUser->getID().'/'.$oUser->featured_image : 'https://via.placeholder.com/156x156';
+                            ?>
+                            <img src="<?=$sProfileImg?>" class="avatar img-fluid rounded mr-1" alt="<?=$oUser->getLabel()?>" />
+                            <span class="text-dark"><?=$oUser->getLabel()?>
                                 <?php
-                                $aUserXPInfo = CoreController::$oSession->oUser->getExperience();
+                                $aUserXPInfo = $oUser->getExperience();
                                 ?>
                                 - <small><?=$this->translate('Level')?> <?=$aUserXPInfo['level']?></small>
                             </span>
@@ -187,6 +195,13 @@ use Application\Controller\CoreController;
         <footer class="footer">
             <div class="container-fluid">
                 <div class="row text-muted">
+                    <?php if(isset(CoreController::$aGlobalSettings['app-destroy-timer'])) { ?>
+                        <div class="col-md-12">
+                            <div class="alert alert-warning px-2 py-2">
+                                <?=$this->translate('This instance will be reset in')?> <?=date('H:i',strtotime(CoreController::$aGlobalSettings['app-destroy-timer'])-time())?> h
+                            </div>
+                        </div>
+                    <?php } ?>
                     <div class="col-6 text-left">
                         <p class="mb-0">
                             &copy; 2020 onePlace - Theme Vuze by <a href="https://bootlab.io" class="text-muted" target="_blank">bootlab.io</a>

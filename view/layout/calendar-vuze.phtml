@@ -1,12 +1,15 @@
 <?php
 use Application\Controller\CoreController;
+
+$sAppTitle = CoreController::$aGlobalSettings['app-title'];
+$sAppTitle = str_replace(['##VERSION##'],[Application\Module::VERSION],$sAppTitle);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <?= $this->headTitle('Calendar - '.CoreController::$aGlobalSettings['app-title'])->setSeparator(' - ')->setAutoEscape(false) ?>
+    <?= $this->headTitle('Calendar - '.$sAppTitledme)->setSeparator(' - ')->setAutoEscape(false) ?>
 
     <?= $this->headMeta()
         ->appendName('viewport', 'width=device-width, initial-scale=1.0')
@@ -195,6 +198,13 @@ use Application\Controller\CoreController;
         <footer class="footer">
             <div class="container-fluid">
                 <div class="row text-muted">
+                    <?php if(isset(CoreController::$aGlobalSettings['app-destroy-timer'])) { ?>
+                        <div class="col-md-12">
+                            <div class="alert alert-warning px-2 py-2">
+                                <?=$this->translate('This instance will be reset in')?> <?=date('H:i',strtotime(CoreController::$aGlobalSettings['app-destroy-timer'])-time())?> h
+                            </div>
+                        </div>
+                    <?php } ?>
                     <div class="col-6 text-left">
                         <p class="mb-0">
                             &copy; 2020 onePlace - Theme Vuze by <a href="https://bootlab.io" class="text-muted" target="_blank">bootlab.io</a>
