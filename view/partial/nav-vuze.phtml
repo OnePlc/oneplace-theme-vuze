@@ -25,6 +25,13 @@ $aIndexPermissions = CoreController::$oSession->oUser->getMyPermissions('index',
             $sActive = ($this->sRouteName == 'home' && $aInfo['index']->nav_href == '/') ? ' active' : $sActive;
 
             $sIconName = substr($aInfo['index']->nav_href,1);
+
+            $bHasParam = stripos($sIconName,'?');
+            if($bHasParam === false) {
+
+            } else {
+                $sIconName = substr($sIconName,0,$bHasParam);
+            }
             $sIcon = (array_key_exists($sIconName.'-icon',CoreController::$aGlobalSettings))
                 ?  CoreController::$aGlobalSettings[$sIconName.'-icon'] : '';
             ?>

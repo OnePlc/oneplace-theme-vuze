@@ -24,7 +24,7 @@ $sAppTitle = str_replace(['##VERSION##'],[Application\Module::VERSION],$sAppTitl
         ->prependStylesheet($this->basePath('/vendor/@fullcalendar/timegrid/main.min.css'))
         ->prependStylesheet($this->basePath('/vendor/@fullcalendar/list/main.min.css'))
         ->prependStylesheet($this->basePath('/vendor/@fullcalendar/daygrid/main.min.css'))
-        ->prependStylesheet($this->basePath('/vendor/@fullcalendar/core/main.min.css'))
+        ->prependStylesheet($this->basePath('/vendor/@fullcalendar/common/main.min.css'))
         ->prependStylesheet($this->basePath('/vendor/shepherd.js/dist/css/shepherd.css'))
         ->prependStylesheet($this->basePath('/vendor/uppy/dist/uppy.min.css'))
         ->prependStylesheet($this->basePath('/vendor/summernote/dist/summernote-bs4.min.css'))
@@ -36,16 +36,13 @@ $sAppTitle = str_replace(['##VERSION##'],[Application\Module::VERSION],$sAppTitl
     <?= $this->inlineScript()
         ->prependFile($this->basePath('/js/plc-message.js'))
         ->prependFile($this->basePath('/js/listener.js'))
-        ->prependFile($this->basePath('/vendor/@fullcalendar/interaction/main.min.js'))
-        ->prependFile($this->basePath('/vendor/@fullcalendar/timegrid/main.min.js'))
-        ->prependFile($this->basePath('/vendor/@fullcalendar/list/main.min.js'))
-        ->prependFile($this->basePath('/vendor/@fullcalendar/daygrid/main.min.js'))
-        ->prependFile($this->basePath('/vendor/@fullcalendar/core/main.min.js'))
         ->prependFile($this->basePath('/vendor/shepherd.js/dist/js/shepherd.min.js'))
         ->prependFile($this->basePath('/vendor/summernote/dist/summernote-bs4.min.js'))
         ->prependFile($this->basePath('/vendor/jquery-ui-sortable/jquery-ui.min.js'))
         ->prependFile($this->basePath('/themes/vuze/assets/js/app.js'))
     ?>
+
+
     <!-- Load FilePond library -->
     <script src="/vendor/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.min.js"></script>
     <script src="/vendor/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.min.js"></script>
