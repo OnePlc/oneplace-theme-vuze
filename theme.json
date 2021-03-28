@@ -1,7 +1,7 @@
 {
   "name": "vuze",
   "description": "Vuze is a responsive Bootstrap 4 administrator dashboard built for everyone who want to webapps on top of the most popular framework, Bootstrap. Vuze helps you to create your next Bootstrap even faster then before. It can be used to create a Saas based interface, administrator dashboard or anything you want to build on the web. Vuze helps your team moving faster and saving development costs.",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "author": "oneplace",
   "template": {
     "author": "bootlab.io"
